@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import  Cart from './car.png'
+//import  Obj from './object'
 
-function App() {
+import useWebAnimations from "@wellyshen/use-web-animations";
+
+
+ const App = () => {
+  // Add a pre-defined effect to the target
+  const { ref, playState ,getAnimation} = useWebAnimations({
+    keyframes: [
+      { transform: 'translate(0,55%)' },
+    
+      { transform: 'translate(600px,55%)' },
+    
+            ],
+          
+    timing: {
+ 
+      duration: 1000, // Run for 1000ms
+      fill:"forwards",
+      iterations: Infinity, 
+ 
+    }
+    });
+
+ const speedUp = () => {
+    const animation = getAnimation();
+    animation.updatePlaybackRate(animation.playbackRate * 0.25);
+  };
+  const jumpToHalf = () => {
+    const animation = getAnimation();
+    animation.updatePlaybackRate(animation.playbackRate *= 2);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div className='container'>
+     {/*      <div id='bird'>      <Obj ></Obj> </div> */}
+ 
+       {/* <div> <img id ="bird" src={Bird} alt=""></img></div>  */}
+     
+      <div className="target" ref={ref} >
+       
+    
+        <img id='car' src={Cart} alt=''></img> 
+      
+      </div>
+      <button onClick={speedUp}>Slow</button>
+      <button onClick={jumpToHalf}>Fast</button>
+
+       
+      
+     {/*  <button className='buttons' onClick={()=>getAnimation().play()}>Play</button>
+      <button className='buttons' onClick={()=>getAnimation().pause()}>Pause</button> */}
+{/*       <button onClick={speedUp}>Speed Up</button>
+      <button onClick={jumpToHalf}>Jump to Half</button> */}
     </div>
   );
-}
-
+};
 export default App;
